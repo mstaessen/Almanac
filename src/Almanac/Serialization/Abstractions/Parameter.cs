@@ -6,7 +6,7 @@ namespace Almanac.Serialization.Abstractions
 {
     public class Parameter : IEquatable<Parameter>
     {
-        private readonly IList<string> values = new List<string>();
+        private readonly IList<string> values;
 
         public string Name { get; }
 
@@ -14,9 +14,10 @@ namespace Almanac.Serialization.Abstractions
 
         public bool Quoted { get; set; }
 
-        public Parameter(string name)
+        public Parameter(string name, params string[] values)
         {
             Name = name;
+            this.values = new List<string>(values);
         }
 
         public void AddValue(string value)

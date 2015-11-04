@@ -15,25 +15,24 @@ namespace Almanac.Serialization
             writer.Flush();
         }
 
-        public void Serialize(IEnumerable<Component> components, TextWriter writer)
-        {
-            foreach (var component in components) {
-                WriteComponent(component, writer);
-                writer.Write(Token.NewLine);
-            }
-        }
-
         private void WriteComponent(Component component, TextWriter writer)
         {
             writer.Write(Token.Begin);
             writer.Write(Token.Colon);
             writer.Write(component.Name);
             writer.Write(Token.NewLine);
-            foreach (var property in component.Properties) {
-                WriteProperty(property, writer);
-                writer.Write(Token.NewLine);
+            foreach (var group in component.Properties) {
+                foreach (var property in group) {
+                    WriteProperty(property, writer);
+                    writer.Write(Token.NewLine);
+                }
             }
-            Serialize(component.Components, writer);
+            foreach (var group in component.Components) {
+                foreach (var innerComponent in group) {
+                    WriteComponent(innerComponent, writer);
+                    writer.Write(Token.NewLine);
+                }
+            }
             writer.Write(Token.End);
             writer.Write(Token.Colon);
             writer.Write(component.Name);
@@ -43,9 +42,11 @@ namespace Almanac.Serialization
         {
             // TODO Implement line folding!
             writer.Write(property.Name);
-            foreach (var parameter in property.Parameters) {
-                writer.Write(Token.Semicolon);
-                WriteParameter(parameter, writer);
+            foreach (var group in property.Parameters) {
+                foreach (var parameter in group) {
+                    writer.Write(Token.Semicolon);
+                    WriteParameter(parameter, writer);
+                }
             }
             writer.Write(Token.Colon);
             writer.Write(property.Value);

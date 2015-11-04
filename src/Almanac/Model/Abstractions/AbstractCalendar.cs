@@ -50,7 +50,7 @@ namespace Almanac.Model.Abstractions
         public override int GetHashCode()
         {
             unchecked {
-                return (Method?.GetHashCode() ?? 0) ^ ((events?.GetHashCode() ?? 0) * 397);
+                return (events?.GetHashCode() ?? 0) * 397;
             }
         }
     }

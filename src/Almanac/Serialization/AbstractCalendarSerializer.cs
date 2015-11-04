@@ -57,14 +57,24 @@ namespace Almanac.Serialization
         protected virtual Property CreateDateTimeProperty(string propertyName, DateTime datetime)
         {
             return new Property(propertyName) {
-                Value = datetime.ToICalDateTime() // TODO Clean up
+                Value = FormatDateTime(datetime)
+            };
+        }
+
+        protected virtual Property CreateUtcDateTimeProperty(string propertyName, DateTime datetime)
+        {
+            if (datetime.Kind != DateTimeKind.Utc) {
+                datetime = datetime.ToUniversalTime();
+            }
+            return new Property(propertyName) {
+                Value = FormatUtcDateTime(datetime)
             };
         }
 
         protected virtual Property CreateDateTimeProperty(string propertyName, ZonedDateTime<TTimeZone> datetime)
         {
             var property = new Property(propertyName) {
-                Value = datetime.DateTime.ToICalDateTime() // TODO Clean up
+                Value = FormatDateTime(datetime.DateTime)
             };
             if (!datetime.IsUtc) {
                 var parameter = new Parameter(ParameterName.TimeZoneIdentifier) { Quoted = true };
@@ -72,6 +82,31 @@ namespace Almanac.Serialization
                 property.AddParameter(parameter);
             }
             return property;
+        }
+
+        protected virtual Property CreateLocalizedStringProperty(string propertyName, LocalizedString localString)
+        {
+            var property = new Property(propertyName) {
+                Value = localString.Text
+            };
+            if (localString.CultureInfo != null) {
+                var parameter = new Parameter(ParameterName.Language);
+                parameter.AddValue(localString.CultureInfo.Name);
+                property.AddParameter(parameter);
+            }
+            return property;
+        }
+
+        protected static string FormatDateTime(DateTime datetime)
+        {
+            return datetime.Kind == DateTimeKind.Utc
+                ? FormatUtcDateTime(datetime)
+                : datetime.ToString("yyyyMMdd'T'HHmmss");
+        }
+
+        protected static string FormatUtcDateTime(DateTime datetime)
+        {
+            return datetime.ToString("yyyyMMdd'T'HHmmss'Z'");
         }
     }
 }

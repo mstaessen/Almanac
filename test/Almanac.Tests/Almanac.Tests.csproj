@@ -59,9 +59,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CalendarFixture.cs" />
     <Compile Include="CalendarSerializationFacts.cs" />
     <Compile Include="ComponentSerializationFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Fixtures\Fixture1.cs" />
+    <Compile Include="Fixtures\Fixture2.cs" />
+    <Compile Include="Fixtures\Fixture3.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -74,6 +78,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fixtures\Fixture1.ics" />
+    <Content Include="Fixtures\Fixture2.ics" />
+    <Content Include="Fixtures\Fixture3.ics" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

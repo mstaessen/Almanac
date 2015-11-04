@@ -1,17 +1,26 @@
+using Almanac.Model.Abstractions;
+
 namespace Almanac.Model
 {
-    public class Attendee
+    public class Attendee : Address
     {
-        public string Name { get; set; }
+        public AttendeeType Type { get; set; }
 
-        public string Email { get; set; }
+        public AttendeeRole Role { get; set; }
 
-        public AttendeeType? Type { get; set; }
+        public ParticipationStatus ParticipationStatus { get; set; }
 
-        public AttendeeRole? Role { get; set; }
+        public bool ResponseExpected { get; set; }
 
-        public EventParticipationStatus? Status { get; set; }
+        public Attendee(string email) 
+            : this(email, null) { }
 
-        public bool? ResponseExpectation { get; set; }
+        public Attendee(string email, LocalizedString name)
+            : base(email, name)
+        {
+            Type = AttendeeType.Individual;
+            Role = AttendeeRole.RequiredParticipant;
+            ParticipationStatus = ParticipationStatus.NeedsAction;
+        }
     }
 }

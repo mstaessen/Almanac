@@ -1,10 +1,16 @@
 using System;
+using System.Diagnostics;
 using Almanac.Model.Abstractions;
 
 namespace Almanac.Model
 {
+    [DebuggerDisplay("{Id}")]
     public class BclTimeZone : ITimeZone, IZonedDateTimeProvider<BclTimeZone>
     {
+        public static BclTimeZone Utc { get; } = new BclTimeZone(TimeZoneInfo.Utc);
+
+        public static BclTimeZone Local { get; } = new BclTimeZone(TimeZoneInfo.Local);
+
         public TimeZoneInfo Info { get; }
 
         public string Id => Info.Id;

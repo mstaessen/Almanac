@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Almanac.Serialization.Abstractions
 {
     public class Property : IEquatable<Property>
     {
-        private readonly IList<Parameter> parameters = new List<Parameter>();
+        private readonly IGroupCollection<string, Parameter> parameters = new GroupCollection<string, Parameter>(p => p.Name, StringComparer.OrdinalIgnoreCase);
 
         public string Name { get; }
 
-        public IEnumerable<Parameter> Parameters => parameters;
+        public ILookup<string, Parameter> Parameters => parameters;
 
         public virtual string Value { get; internal set; }
 

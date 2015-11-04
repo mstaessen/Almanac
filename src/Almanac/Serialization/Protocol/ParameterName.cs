@@ -1,12 +1,15 @@
 ﻿namespace Almanac.Serialization.Protocol
 {
+    /// <summary>
+    /// http://www.iana.org/assignments/icalendar/icalendar.xhtml#parameters
+    /// </summary>
     public static class ParameterName
     {
         public static readonly string AlternateTextRepresentation = "ALTREP";
         public static readonly string CommonName = "CN";
         public static readonly string CalendarUserType = "CUTYPE";
-        public static readonly string Delegators = "DELEGATED-TO";
         public static readonly string Delegatees = "DELEGATED-FROM";
+        public static readonly string Delegators = "DELEGATED-TO";
         public static readonly string DirectoryEntryReference = "DIR";
         public static readonly string InlineEncoding = "ENCODING";
         public static readonly string FormatType = "FMTTYPE";

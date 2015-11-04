@@ -1,11 +1,14 @@
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using Almanac.Model;
+using Almanac.Model.Abstractions;
 using Almanac.Serialization;
 using Xunit;
+using Calendar = Almanac.Model.Calendar;
 
 namespace Almanac.Tests
 {
@@ -16,15 +19,19 @@ namespace Almanac.Tests
         {
             // Arrange
             var timeZoneRegistry = new BclTimeZoneRegistry();
-            var calendar = new Calendar();
+            var calendar = new Calendar {
+                Method = Method.Request 
+            };
             var @event = new Event {
-                Summary = "Text Event",
-                Description = "Event used for unit testing",
+                Summary = new LocalizedString ("Text Event"),
+                Description = new LocalizedString ("Event used for unit testing"),
                 Start = timeZoneRegistry.Local.CreateZonedDateTime(new DateTime(2015, 10, 18, 9, 0, 0)),
                 End = timeZoneRegistry.Local.CreateZonedDateTime(new DateTime(2015, 10, 18, 11, 0, 0)),
-                Location = "Earth",
-                Classification = Classification.Public
+                Location = new LocalizedString ("Earth", new CultureInfo("en")),
+                Classification = Classification.Public,
+                Organizer = new Organizer("jane.doe@example.com", new LocalizedString("Doe, Jane"))
             };
+            @event.AddAttendee(new Attendee("john.doe@example.com", new LocalizedString("Doe, John")));
             calendar.AddEvent(@event);
 
             // Act

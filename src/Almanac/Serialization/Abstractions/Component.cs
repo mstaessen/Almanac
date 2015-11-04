@@ -1,20 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Almanac.Serialization.Abstractions
 {
     public class Component : IEquatable<Component>
     {
-        private readonly IList<Component> components = new List<Component>();
+        private readonly IGroupCollection<string, Component> components = new GroupCollection<string, Component>(c => c.Name, StringComparer.OrdinalIgnoreCase);
 
-        private readonly IList<Property> properties = new List<Property>();
+        private readonly IGroupCollection<string, Property> properties = new GroupCollection<string, Property>(p => p.Name, StringComparer.OrdinalIgnoreCase);
 
         public string Name { get; }
 
-        public virtual IEnumerable<Property> Properties => properties;
+        public virtual ILookup<string, Property> Properties => properties;
 
-        public virtual IEnumerable<Component> Components => components;
+        public virtual ILookup<string, Component> Components => components;
 
         public Component(string name)
         {

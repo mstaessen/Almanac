@@ -1,22 +1,33 @@
+using System;
 using System.Collections.Generic;
 
 namespace Almanac.Model.Abstractions
 {
-    public class PropertyValueRegistry<T, TValue> where T : PropertyValue<TValue>
+    public class PropertyValueRegistry<T> 
+        where T : PropertyValue, new()
     {
-        private static readonly IDictionary<TValue, T> Registry = new Dictionary<TValue, T>();
+        private readonly IDictionary<string, T> values = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase);
 
-        public static void Register(T value)
+        public void Register(T value)
         {
-            Registry[value.Value] = value;
+            values[value.Value] = value;
         }
 
-        public static T FromString(TValue value)
+        public T FromString(string value)
         {
-            if (Registry.ContainsKey(value)) {
-                return Registry[value];
+            value = value.ToUpperInvariant();
+            if (!values.ContainsKey(value)) {
+                Register(Create(value));
             }
-            return null;
+            return values[value];
+        }
+
+        private T Create(string value)
+        {
+            var item = new T {
+                Value = value
+            };
+            return item;
         }
     }
 }
