@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using Almanac.Model;
 using Almanac.Model.Abstractions;
@@ -18,7 +19,8 @@ namespace Almanac.Serialization
 
         private static string CreateProductIdentifier()
         {
-            var version = GitVersionInformation.FullSemVer;
+            var versionAttribute = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyVersionAttribute>();
+            var version = versionAttribute?.Version ?? "unknown version";
             return $"-//Almanac//{version}//EN";
         }
 

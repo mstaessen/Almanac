@@ -1,4 +1,3 @@
-using System.Text;
 using Almanac.Model.Abstractions;
 
 namespace Almanac.Model

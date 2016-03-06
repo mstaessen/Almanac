@@ -9,7 +9,7 @@ namespace Almanac.Model.Abstractions
     {
         private readonly IList<Attendee> attendees = new List<Attendee>(); 
 
-        public string Id { get; internal set; }
+        public string Id { get; set; }
 
         public ZonedDateTime<TTimeZone> Start { get; set; }
 

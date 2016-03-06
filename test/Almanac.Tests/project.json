@@ -1,0 +1,29 @@
+{
+  "version": "0.1.0-unstable.*",
+  "description": "Test Suite for Almanac",
+  "authors": [
+    "Michiel Staessen <staessenmichiel@gmail.com>"
+  ],
+  "tags": [ "rfc5545", "ical", "iCalendar", "ics", "xunit" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "dependencies": {
+    "xunit": "2.1.0",
+    "xunit.runner.console": "2.1.0",
+    "xunit.runner.dnx": "2.1.0-beta6-build191",
+    "Almanac": ""
+  },
+
+  "commands": {
+    "test": "xunit.runner.dnx"
+  },
+
+  "frameworks": {
+    "dnx451": { }
+  },
+  "publishExclude": [
+    "**.user",
+    "**.vspscc"
+  ]
+}

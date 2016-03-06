@@ -1,0 +1,19 @@
+{
+  "version": "0.1.0-*",
+  "description": "Almanac is an extensible RFC5545 (iCalendar) implementation.",
+  "authors": [
+    "Michiel Staessen <staessenmichiel@gmail.com>"
+  ],
+  "tags": [ "rfc5545", "ical", "iCalendar", "ics" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "dependencies": { },
+  "frameworks": {
+    "net451": { }
+  },
+  "publishExclude": [
+    "**.user",
+    "**.vspscc"
+  ]
+}

@@ -15,7 +15,7 @@ namespace Almanac.Model
 
         public bool IsUtc { get; }
 
-        internal ZonedDateTime(TTimeZone timezone, DateTime datetime)
+        public ZonedDateTime(TTimeZone timezone, DateTime datetime)
         {
             if (timezone == null) {
                 throw new ArgumentNullException(nameof(timezone));
